@@ -1,0 +1,12 @@
+
+CREATE TABLE IF NOT EXISTS accounts (
+    id         BIGSERIAL PRIMARY KEY,
+    address    VARCHAR(100) NOT NULL UNIQUE,
+    amount     DECIMAL(15,2) NOT NULL DEFAULT 0.0,
+    user_id    BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    is_active  BOOLEAN NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+COMMENT ON TABLE accounts IS 'Account table';

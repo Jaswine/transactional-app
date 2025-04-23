@@ -1,0 +1,36 @@
+
+vaadin.launch-browser: true
+spring.application.name: transactional-app
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/transactional_app
+    username: transactional_app
+    password: transactional_app
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+    url: jdbc:postgresql://localhost:5432/transactional_app
+    user: transactional_app
+    password: transactional_app
+    schemas: public
+  servlet:
+    compression:
+      enabled: true
+      mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+      min-response-size: 1024
+
+url:
+  base:
+
+security:
+  admin:
+    username: admin@jaswine.com
+    password: pass644
+
+vaadin:
+  whitelisted-packages: com/jaswine/transactional_app/views
+  urlMapping: /admin/*
+
