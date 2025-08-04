@@ -10,6 +10,7 @@ import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.SvgIcon;
@@ -18,6 +19,7 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
@@ -42,7 +44,8 @@ public class MainLayout extends AppLayout {
         HorizontalLayout headerButtons = createhorizontalLayout(
                 createHeaderButton("Home", HomeView.class),
                 createHeaderButton("Accounts", AccountView.class),
-                createHeaderButton("Transactions", TransactionView.class)
+                createHeaderButton("Transactions", TransactionView.class),
+                createExternalLinkButton("API", "/swagger-ui/")
         );
         headerButtons.setJustifyContentMode(FlexComponent.JustifyContentMode.START);
 
@@ -72,6 +75,16 @@ public class MainLayout extends AppLayout {
         link.getStyle().setColor("var(--lumo-header-text-color)");
         return link;
     }
+
+    private Anchor createExternalLinkButton(String viewName, String url) {
+        Span text = new Span(viewName);
+        Anchor anchor = new Anchor(url, text);
+        anchor.setTarget("_blank");
+        anchor.getElement().getThemeList().add("contrast");
+        anchor.getStyle().set("color", "var(--lumo-header-text-color)");
+        return anchor;
+    }
+
 
     private HorizontalLayout createhorizontalLayout(Component... components) {
         HorizontalLayout horizontalLayout = new HorizontalLayout();

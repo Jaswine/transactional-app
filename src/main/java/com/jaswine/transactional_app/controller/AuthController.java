@@ -1,9 +1,8 @@
 package com.jaswine.transactional_app.controller;
 
-import com.jaswine.transactional_app.db.dto.LoginRequestDto;
-import com.jaswine.transactional_app.db.dto.RegisterRequestDto;
-import com.jaswine.transactional_app.db.dto.TokenResponseDto;
-import com.jaswine.transactional_app.db.dto.UserResponseDto;
+import com.jaswine.transactional_app.controller.dto.LoginRequestDto;
+import com.jaswine.transactional_app.controller.dto.RegisterRequestDto;
+import com.jaswine.transactional_app.controller.dto.TokenResponseDto;
 import com.jaswine.transactional_app.db.entity.User;
 import com.jaswine.transactional_app.services.AuthService;
 import com.jaswine.transactional_app.utils.JwtUtils;
@@ -17,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
+/**
+ * Controller for authentication
+ */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
@@ -36,6 +38,5 @@ public class AuthController {
                 JwtUtils.generateAccessToken(user.getEmail()),
                 JwtUtils.generateRefreshToken(user.getEmail()))
             )).orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
-
     }
 }

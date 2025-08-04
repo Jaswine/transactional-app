@@ -11,6 +11,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -21,10 +22,10 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
 
     public void register(String username, String email, String password) {
-        if (findByEmail(email).isPresent()) {
+        if (userRepository.findByEmail(email).isPresent()) {
             throw new RuntimeException("Email already in use");
         }
-        if (findByUsername(username).isPresent()) {
+        if (userRepository.findByUsername(username).isPresent()) {
             throw new RuntimeException("Username already taken");
         }
 
@@ -39,8 +40,8 @@ public class AuthService {
         Account account = Account.builder()
                 .address(AccountUtils.generateAddress())
                 .amount((float) 0)
-                .isActive(true)
                 .user(user)
+                .isActive(true)
                 .build();
 
         userRepository.save(user);
@@ -48,7 +49,7 @@ public class AuthService {
     }
 
     public Optional<User> login(String email, String rawPassword) {
-        Optional<User> user = Optional.ofNullable(findByEmail(email)
+        Optional<User> user = Optional.ofNullable(userRepository.findByEmail(email)
                 .orElseThrow(() -> new BadCredentialsException("Invalid email or password")));
 
         if (user.isEmpty() || !passwordEncoder.matches(rawPassword, user.get().getPassword())) {
@@ -58,11 +59,4 @@ public class AuthService {
         return user;
     }
 
-    public Optional<User> findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    public Optional<User> findByUsername(String email) {
-        return userRepository.findByUsername(email);
-    }
 }

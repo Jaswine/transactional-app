@@ -7,7 +7,7 @@
 
 ## 🗃️ Architecture
 
-<img width="2560" alt="Transactional app(2)" src="https://github.com/user-attachments/assets/9d03567c-e6b6-479d-a801-4854764f5d07" />
+![Transactional app.png](readme.images/Transactional%20app.png)
 
 ## 📋 Endpoints
 

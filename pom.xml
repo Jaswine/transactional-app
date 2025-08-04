@@ -126,6 +126,12 @@
 			<version>0.11.5</version>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- Swagger/OpenAPI для Spring Boot -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.5.0</version>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>

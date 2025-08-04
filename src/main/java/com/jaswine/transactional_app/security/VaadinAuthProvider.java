@@ -1,7 +1,9 @@
 package com.jaswine.transactional_app.security;
 
 import com.jaswine.transactional_app.db.entity.User;
+import com.jaswine.transactional_app.db.enums.UserType;
 import com.jaswine.transactional_app.services.AuthService;
+import com.jaswine.transactional_app.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
@@ -20,19 +22,26 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class VaadinAuthProvider implements AuthenticationProvider {
     private final AuthService authService;
+    private final UserService userService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String email = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        Optional<User> user = authService.findByEmail(email);
-        if (user.isEmpty()) {
+        System.out.println("Email: " + email);
+
+        Optional<User> user = userService.findByEmail(email);
+        if (user.isEmpty() || user.get().getType() != UserType.ADMIN) {
             throw new BadCredentialsException("User not found: " + email);
         }
 
+        System.out.println("User: " + user.get().getEmail());
+
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(user.get().getType().name()));
+
+        System.out.println("authorities: " + authorities.toString());
 
         if (authService.login(email, password).isEmpty()) {
             throw new BadCredentialsException("Password is incorrect: " + email);

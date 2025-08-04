@@ -5,6 +5,8 @@ import com.jaswine.transactional_app.db.enums.UserType;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 /**
  * User model
  */

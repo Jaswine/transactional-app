@@ -1,6 +1,7 @@
 package com.jaswine.transactional_app.security;
 
 
+import com.jaswine.transactional_app.db.enums.UserType;
 import com.jaswine.transactional_app.views.components.login.LoginView;
 import com.vaadin.flow.spring.security.VaadinWebSecurity;
 import lombok.RequiredArgsConstructor;
@@ -8,9 +9,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
@@ -24,7 +27,6 @@ public class SecurityConfig extends VaadinWebSecurity {
     private final VaadinAuthProvider authProvider;
     private final JwtAuthFilter jwtAuthFilter;
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -34,13 +36,11 @@ public class SecurityConfig extends VaadinWebSecurity {
                     .loginProcessingUrl("/admin/login")
                     .successForwardUrl("/admin")
                     .failureUrl("/admin/login?error")
-                    .permitAll()
-            )
+                    .permitAll())
             .logout(logout -> logout
                     .logoutUrl("/admin/logout")
                     .logoutSuccessUrl("/admin/login?logout")
-                    .permitAll()
-            )
+                    .permitAll())
             .authenticationProvider(authProvider);
 
         super.configure(http);
@@ -48,8 +48,9 @@ public class SecurityConfig extends VaadinWebSecurity {
         setLoginView(http, LoginView.class);
     }
 
+
     @Bean
-    @Order(10)
+    @Order(20)
     protected SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .securityMatcher("/api/**")
@@ -57,6 +58,7 @@ public class SecurityConfig extends VaadinWebSecurity {
                         AntPathRequestMatcher.antMatcher("/api/**")))
                 .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/api/auth/**").permitAll()
+                    .requestMatchers("/api/account").hasRole(UserType.ADMIN.name())
                     .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(session -> session
