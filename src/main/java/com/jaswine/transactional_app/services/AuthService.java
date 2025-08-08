@@ -11,7 +11,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -39,7 +38,7 @@ public class AuthService {
 
         Account account = Account.builder()
                 .address(AccountUtils.generateAddress())
-                .amount((float) 0)
+                    .amount((float) 0)
                 .user(user)
                 .isActive(true)
                 .build();

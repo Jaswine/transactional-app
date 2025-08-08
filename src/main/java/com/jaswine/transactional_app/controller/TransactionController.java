@@ -2,6 +2,7 @@ package com.jaswine.transactional_app.controller;
 
 import com.jaswine.transactional_app.controller.dto.TransactionRequestDto;
 import com.jaswine.transactional_app.controller.dto.TransactionLogResponseDto;
+import com.jaswine.transactional_app.controller.dto.TransactionResponseDto;
 import com.jaswine.transactional_app.db.entity.Account;
 import com.jaswine.transactional_app.db.entity.TransactionLog;
 import com.jaswine.transactional_app.services.AccountService;
@@ -24,7 +25,7 @@ public class TransactionController {
     private final AccountService accountService;
 
     @PostMapping("/{accountToId}")
-    public ResponseEntity<TransactionLogResponseDto> register(@PathVariable long accountToId,
+    public ResponseEntity<TransactionLogResponseDto> send(@PathVariable long accountToId,
                                            @RequestBody TransactionRequestDto request) {
         Optional<Account> currentAccount = accountService.findByUserEmail(
                 SecurityContextHolder.getContext().getAuthentication().getName());
@@ -34,6 +35,16 @@ public class TransactionController {
                 transactionLog.getStatusCode(),
                 transactionLog.getTitle(),
                 transactionLog.getDescription()
+        ));
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<TransactionResponseDto> getAllTransactions() {
+        Optional<Account> currentAccount = accountService.findByUserEmail(
+                SecurityContextHolder.getContext().getAuthentication().getName());
+
+        return ResponseEntity.ok(new TransactionResponseDto(
+
         ));
     }
 }

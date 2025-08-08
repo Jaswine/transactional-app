@@ -17,9 +17,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
             "SELECT a.* " +
                     "FROM accounts a " +
                     "JOIN users u ON a.user_id = u.id " +
-                    "WHERE a.is_active = true " +
-                    "  AND u.is_active = true " +
-                    "  AND ( " +
+                    "WHERE ( " +
                     "      LOWER(u.username) LIKE LOWER(CONCAT('%', :searchingText, '%')) " +
                     "    OR LOWER(u.email)    LIKE LOWER(CONCAT('%', :searchingText, '%')) " +
                     "    OR ( :searchingText ~ '^\\d+(\\.\\d+)?$' " +

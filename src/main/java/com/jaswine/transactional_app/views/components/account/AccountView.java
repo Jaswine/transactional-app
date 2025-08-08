@@ -6,9 +6,8 @@ import com.jaswine.transactional_app.views.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.html.H2;
@@ -19,6 +18,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.ListDataProvider;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.LitRenderer;
 import com.vaadin.flow.data.renderer.Renderer;
 import com.vaadin.flow.data.value.ValueChangeMode;
@@ -74,17 +74,18 @@ public class AccountView extends VerticalLayout {
 
         amountMinFilter.setPlaceholder("Min. amount");
         amountMinFilter.setTooltipText("Min. amount");
+        amountMinFilter.setWidth("120px");
         amountMinFilter.setClearButtonVisible(true);
-        amountMinFilter.setPrefixComponent(new Span("€"));
         amountMinFilter.setSuffixComponent(VaadinIcon.EURO.create());
 
         amountMaxFilter.setPlaceholder("Max. amount");
         amountMaxFilter.setTooltipText("Max. amount");
+        amountMaxFilter.setWidth("120px");
         amountMaxFilter.setClearButtonVisible(true);
-        amountMaxFilter.setPrefixComponent(new Span("€"));
         amountMaxFilter.setSuffixComponent(VaadinIcon.EURO.create());
 
-        HorizontalLayout filteringLayoutLeft = createHorizontalLayout(searchField);
+        HorizontalLayout filteringLayoutLeft = createHorizontalLayout(searchField,
+                amountMinFilter, amountMaxFilter);
         filteringLayoutLeft.setJustifyContentMode(JustifyContentMode.START);
 
         // Left || Right buttons
@@ -128,10 +129,14 @@ public class AccountView extends VerticalLayout {
     private void configureGrid() {
         accountGrid.addColumn(createEmployeeRenderer()).setHeader("User")
                 .setAutoWidth(true).setFlexGrow(0)
-                .setComparator(account -> account.getUser().getUsername());
-        accountGrid.addColumn(Account::getAddress).setHeader("Address");
-        accountGrid.addColumn(Account::getAmount).setHeader("Amount");
-        accountGrid.addColumn(Account::getIsActive).setHeader("Status");
+                .setComparator(account -> account.getUser().getUsername()).setResizable(true);
+        accountGrid.addColumn(Account::getAddress).setHeader("Address").setResizable(true);
+        accountGrid.addColumn(Account::getAmount).setHeader("Amount").setResizable(true);
+        accountGrid.addColumn(new ComponentRenderer<>(account -> {
+            Checkbox checkbox = new Checkbox(account.getIsActive());
+            checkbox.setEnabled(false);
+            return checkbox;
+        })).setHeader("Is Active").setResizable(true);
 
         accountGrid.getDataProvider().refreshAll();
         accountGrid.setDetailsVisibleOnClick(true);

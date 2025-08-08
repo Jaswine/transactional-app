@@ -2,13 +2,12 @@ package com.jaswine.transactional_app.db.entity;
 
 import com.jaswine.transactional_app.db.entity.base.Auditable;
 import com.jaswine.transactional_app.db.enums.TransactionStatus;
+import com.jaswine.transactional_app.db.enums.TransactionType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 
 /**
@@ -32,22 +31,30 @@ public class Transaction extends Auditable {
     private Account account;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "another_account_id", nullable = false)
+    @JoinColumn(name = "another_account_id")
     private Account anotherAccount;
 
     @Column(name = "amount")
     private Float amount;
 
-    @Column(name = "signature")
+    @Column(name = "signature", nullable = false)
     private String signature;
 
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private TransactionStatus status;
+
+    @Column(name = "external_source")
+    private String externalSource;
+
+    @Column(name = "external_reference")
+    private String externalReference;
+
+    @Column(name = "type", nullable = false)
+    private TransactionType transactionType;
 
     @Column(name = "comment")
     private String comment;
 
     @Column(name = "is_active")
     private Boolean isActive;
-
 }

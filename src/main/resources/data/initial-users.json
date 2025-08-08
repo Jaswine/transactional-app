@@ -1,0 +1,345 @@
+[
+  {
+    "username": "admin",
+    "email": "admin@gmail.com",
+    "password": "admin",
+    "userType": "ADMIN",
+    "active": true
+  },
+  {
+    "username": "Adfegecy",
+    "email": "adfegecy@gmail.com",
+    "password": "admin",
+    "userType": "ADMIN",
+    "active": true
+  },
+  {
+    "username": "Monkey D. Luffy",
+    "email": "luffy@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Roronoa Zoro",
+    "email": "zoro@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Sanji",
+    "email": "sanji@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Usopp",
+    "email": "usopp@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Nami",
+    "email": "nami@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Tony Tony Chopper",
+    "email": "tony_tony_chopper@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Nico Robin",
+    "email": "nico_robin@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Franky",
+    "email": "franky@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Brook",
+    "email": "brook@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Jinbe",
+    "email": "jinbe@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Shanks",
+    "email": "shanks@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Benn Beckman",
+    "email": "benn_beckman@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Edward Newgate",
+    "email": "edward_newgate@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Marco",
+    "email": "marco@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Portgas D. Ace",
+    "email": "portgas_d_ace@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Thatch",
+    "email": "thatch@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Vista",
+    "email": "vista@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Marshall D. Teach",
+    "email": "marshall_d_teach@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Jesus Burgess",
+    "email": "jesus_burgess@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Van Augur",
+    "email": "van_augur@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Kuzan",
+    "email": "kuzan@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Borsalino",
+    "email": "borsalino@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Sakazuki",
+    "email": "sakazuki@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Sengoku",
+    "email": "sengoku@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Monkey D. Garp",
+    "email": "monkey_d_garp@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Gion",
+    "email": "gion@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Donquixote Doflamingo",
+    "email": "donquixote_doflamingo@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Rocks D. Xebec",
+    "email": "rocks_d_xebec@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Nefertari Vivi",
+    "email": "nefertari_vivi@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Trafalgar D. Water Law",
+    "email": "trafalgar_d_water_law@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Gol D. Roger",
+    "email": "gol_d_roger@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Portgas D. Rouge",
+    "email": "portgas_d_rouge@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Buggy",
+    "email": "buggy@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Monkey D. Dragon",
+    "email": "monkey_d_dragon@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Crocodile",
+    "email": "crocodile@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Dracule Mihawk",
+    "email": "dracule_mihawk@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Alvida",
+    "email": "alvida@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Galdino",
+    "email": "galdino@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Daz Bonez",
+    "email": "daz_bonez@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Bartholomew Kuma",
+    "email": "bartholomew_kuma@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Boa Hancock",
+    "email": "boa_hancock@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Gecko Moria",
+    "email": "gecko_moria@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Perona",
+    "email": "perona@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Charlotte Katakuri",
+    "email": "charlotte_katakuri@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Gloriosa",
+    "email": "gloriosa@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Tritoma",
+    "email": "tritoma@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  },
+  {
+    "username": "Shakuyaku",
+    "email": "shakuyaku@gmail.com",
+    "password": "12345ABCD",
+    "userType": "SIMPLE",
+    "active": true
+  }
+]

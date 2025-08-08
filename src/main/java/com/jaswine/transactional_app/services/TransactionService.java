@@ -7,6 +7,8 @@ import com.jaswine.transactional_app.db.enums.TransactionStatus;
 import com.jaswine.transactional_app.repositories.TransactionRepository;
 import com.jaswine.transactional_app.utils.TransactionUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -17,6 +19,12 @@ public class TransactionService {
     private final TransactionRepository transactionRepository;
     private final AccountService accountService;
     private final TransactionLogService transactionLogService;
+
+    public Page<Transaction> findAllTransactions(int page, int limit,
+                                                 String searchingText, Float amountMinValue, Float amountMaxValue) {
+        return transactionRepository.findActiveTransactionsByUserFilter(PageRequest.of(page, limit),
+                searchingText, amountMinValue, amountMaxValue);
+    }
 
     public TransactionLog createTransaction(long accountFromId, long accountToId,
                                             Float amount, String comment) {

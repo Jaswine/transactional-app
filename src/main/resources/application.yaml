@@ -38,3 +38,8 @@ vaadin:
   whitelisted-packages: com/jaswine/transactional_app/views
   urlMapping: /admin/*
 
+app:
+  seed:
+    users-file: classpath:data/users.json
+
+#debug: true

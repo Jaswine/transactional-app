@@ -34,3 +34,15 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Vaadin ###
+
+src/main/frontend/generated
+
+vite.config.ts
+vite.generated.ts
+types.d.ts
+
+*.ts
+
+tsconfig.json
