@@ -1,5 +1,6 @@
 package com.jaswine.transactional_app.controller;
 
+import com.jaswine.transactional_app.controller.dto.ReplenishmentRequestDto;
 import com.jaswine.transactional_app.controller.dto.TransactionRequestDto;
 import com.jaswine.transactional_app.controller.dto.TransactionLogResponseDto;
 import com.jaswine.transactional_app.controller.dto.TransactionResponseDto;
@@ -24,13 +25,25 @@ public class TransactionController {
     private final TransactionService transactionService;
     private final AccountService accountService;
 
-    @PostMapping("/{accountToId}")
-    public ResponseEntity<TransactionLogResponseDto> send(@PathVariable long accountToId,
+    @PostMapping("/transaction/{accountToEmail}")
+    public ResponseEntity<TransactionLogResponseDto> sendTransaction(@PathVariable String accountToEmail,
                                            @RequestBody TransactionRequestDto request) {
         Optional<Account> currentAccount = accountService.findByUserEmail(
                 SecurityContextHolder.getContext().getAuthentication().getName());
         TransactionLog transactionLog = transactionService.createTransaction(currentAccount.get().getId(),
-                accountToId, request.getAmount(), request.getComment());
+                accountToEmail, request.getAmount(), request.getComment());
+        return ResponseEntity.ok(new TransactionLogResponseDto(
+                transactionLog.getStatusCode(),
+                transactionLog.getTitle(),
+                transactionLog.getDescription()
+        ));
+    }
+
+    @PostMapping("/replenishment/{accountToEmail}")
+    public ResponseEntity<TransactionLogResponseDto> sendReplenishment(@PathVariable String accountToEmail,
+                                                                       @RequestBody ReplenishmentRequestDto request) {
+        TransactionLog transactionLog = transactionService.createReplenishment(accountToEmail,
+                request.getAmount(), request.getExternalSource(), request.getExternalReference());
         return ResponseEntity.ok(new TransactionLogResponseDto(
                 transactionLog.getStatusCode(),
                 transactionLog.getTitle(),

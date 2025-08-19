@@ -68,21 +68,22 @@ public class AccountView extends VerticalLayout {
         searchField.setClearButtonVisible(true);
         searchField.setPrefixComponent(VaadinIcon.SEARCH.create());
         searchField.setValueChangeMode(ValueChangeMode.LAZY);
-        searchField.addValueChangeListener(value -> {
-            refreshData();
-        });
+        searchField.addValueChangeListener(value -> {refreshData();});
 
         amountMinFilter.setPlaceholder("Min. amount");
         amountMinFilter.setTooltipText("Min. amount");
         amountMinFilter.setWidth("120px");
         amountMinFilter.setClearButtonVisible(true);
         amountMinFilter.setSuffixComponent(VaadinIcon.EURO.create());
+        amountMinFilter.addValueChangeListener(value -> {refreshData();});
+
 
         amountMaxFilter.setPlaceholder("Max. amount");
         amountMaxFilter.setTooltipText("Max. amount");
         amountMaxFilter.setWidth("120px");
         amountMaxFilter.setClearButtonVisible(true);
         amountMaxFilter.setSuffixComponent(VaadinIcon.EURO.create());
+        amountMaxFilter.addValueChangeListener(value -> {refreshData();});
 
         HorizontalLayout filteringLayoutLeft = createHorizontalLayout(searchField,
                 amountMinFilter, amountMaxFilter);
@@ -131,7 +132,7 @@ public class AccountView extends VerticalLayout {
                 .setAutoWidth(true).setFlexGrow(0)
                 .setComparator(account -> account.getUser().getUsername()).setResizable(true);
         accountGrid.addColumn(Account::getAddress).setHeader("Address").setResizable(true);
-        accountGrid.addColumn(Account::getAmount).setHeader("Amount").setResizable(true);
+        accountGrid.addColumn(Account::getAmount).setHeader("Amount(€)").setResizable(true);
         accountGrid.addColumn(new ComponentRenderer<>(account -> {
             Checkbox checkbox = new Checkbox(account.getIsActive());
             checkbox.setEnabled(false);

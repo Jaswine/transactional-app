@@ -4,6 +4,9 @@ import com.jaswine.transactional_app.db.entity.Transaction;
 import com.jaswine.transactional_app.services.TransactionService;
 import com.jaswine.transactional_app.views.MainLayout;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.HasPlaceholder;
+import com.vaadin.flow.component.HasSize;
+import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.grid.Grid;
@@ -13,6 +16,9 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.shared.HasClearButton;
+import com.vaadin.flow.component.shared.HasSuffix;
+import com.vaadin.flow.component.shared.HasTooltip;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.DataProvider;
@@ -65,26 +71,16 @@ public class TransactionView extends VerticalLayout {
     }
 
     private HorizontalLayout createFilteringLayout() {
-        // Search Field
-        searchField.setPlaceholder("Search");
-        searchField.setClearButtonVisible(true);
+        // Search field
         searchField.setPrefixComponent(VaadinIcon.SEARCH.create());
         searchField.setValueChangeMode(ValueChangeMode.LAZY);
-        searchField.addValueChangeListener(value -> {
-            refreshData();
-        });
+        configureField(searchField, "Search", null, null, null);
 
-        amountMinFilter.setPlaceholder("Min. amount");
-        amountMinFilter.setTooltipText("Min. amount");
-        amountMinFilter.setWidth("120px");
-        amountMinFilter.setClearButtonVisible(true);
-        amountMinFilter.setSuffixComponent(VaadinIcon.EURO.create());
+        // Min amount
+        configureField(amountMinFilter, "Min. amount", "Min. amount", "120px", VaadinIcon.EURO.create());
+        // Max amount
+        configureField(amountMaxFilter, "Max. amount", "Max. amount", "120px", VaadinIcon.EURO.create());
 
-        amountMaxFilter.setPlaceholder("Max. amount");
-        amountMaxFilter.setTooltipText("Max. amount");
-        amountMaxFilter.setWidth("120px");
-        amountMaxFilter.setClearButtonVisible(true);
-        amountMaxFilter.setSuffixComponent(VaadinIcon.EURO.create());
 
         HorizontalLayout filteringLayoutLeft = createHorizontalLayout(searchField,
                 amountMinFilter, amountMaxFilter);
@@ -118,6 +114,27 @@ public class TransactionView extends VerticalLayout {
         return createHorizontalLayout(filteringLayoutLeft, filteringLayoutRight);
     }
 
+    private void configureField(Component field, String placeholder, String tooltip, String width, Component suffix) {
+        if (field instanceof HasPlaceholder p) {
+            p.setPlaceholder(placeholder);
+        }
+        if (field instanceof HasTooltip t) {
+            t.setTooltipText(tooltip);
+        }
+        if (width != null && field instanceof HasSize s) {
+            s.setWidth(width);
+        }
+        if (field instanceof HasClearButton c) {
+            c.setClearButtonVisible(true);
+        }
+        if (suffix != null && field instanceof HasSuffix sfx) {
+            sfx.setSuffixComponent(suffix);
+        }
+        if (field instanceof HasValue<?, ?> v) {
+            v.addValueChangeListener(e -> refreshData());
+        }
+    }
+
     private HorizontalLayout createHorizontalLayout(Component... components) {
         HorizontalLayout horizontalLayout = new HorizontalLayout();
         horizontalLayout.add(components);
@@ -137,7 +154,9 @@ public class TransactionView extends VerticalLayout {
         transactionGrid.addColumn(createTransactionAccountRenderer("To"))
                 .setHeader("To")
                 .setAutoWidth(true).setFlexGrow(0)
-                .setComparator(transaction -> transaction.getAnotherAccount().getUser().getUsername());
+                .setComparator(transaction -> transaction.getAnotherAccount() != null
+                                && transaction.getAnotherAccount().getUser() != null
+                                ? transaction.getAnotherAccount().getUser().getUsername() : "");
 
         transactionGrid.addColumn(Transaction::getAmount).setHeader("Amount");
         transactionGrid.addColumn(Transaction::getSignature).setHeader("Signature");
@@ -160,12 +179,14 @@ public class TransactionView extends VerticalLayout {
                                 + "      ${item.email}" + "    </span>"
                                 + "  </vaadin-vertical-layout>"
                                 + "</vaadin-horizontal-layout>")
-                .withProperty("fullName", transaction -> Objects.equals(accountType, "From") ?
-                                                                                transaction.getAccount().getUser().getUsername() :
-                                                                                transaction.getAnotherAccount().getUser().getUsername())
-                .withProperty("email", transaction -> Objects.equals(accountType, "From") ?
-                                                                                transaction.getAccount().getUser().getEmail() :
-                                                                                transaction.getAnotherAccount().getUser().getEmail());
+                .withProperty("fullName", transaction ->
+                        Objects.equals(accountType, "From") ? transaction.getAccount().getUser().getUsername()
+                                :  transaction.getAnotherAccount() != null ?
+                                transaction.getAnotherAccount().getUser().getUsername() : "")
+                .withProperty("email", transaction ->
+                        Objects.equals(accountType, "From") ? transaction.getAccount().getUser().getEmail()
+                                :  transaction.getAnotherAccount() != null ?
+                                transaction.getAnotherAccount().getUser().getEmail() : "");
     }
 
     private VerticalLayout notFoundHint() {
@@ -199,7 +220,7 @@ public class TransactionView extends VerticalLayout {
         Float amountMaxFloatValue = (maxVal != null) ? maxVal.floatValue() : null;
 
         // Get accounts
-        Page<Transaction> accountPage = transactionService.findAllTransactions(currentPage, PAGE_SIZE,
+        Page<Transaction> accountPage = transactionService.findActiveTransactionsByUserFilter(currentPage, PAGE_SIZE,
                 searchingText, amountMinFloatValue, amountMaxFloatValue);
         List<Transaction> accounts = accountPage.getContent();
         // Define next status

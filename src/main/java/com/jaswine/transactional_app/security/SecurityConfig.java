@@ -48,7 +48,6 @@ public class SecurityConfig extends VaadinWebSecurity {
         setLoginView(http, LoginView.class);
     }
 
-
     @Bean
     @Order(20)
     protected SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -58,7 +57,7 @@ public class SecurityConfig extends VaadinWebSecurity {
                         AntPathRequestMatcher.antMatcher("/api/**")))
                 .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/api/auth/**").permitAll()
-                    .requestMatchers("/api/account").hasRole(UserType.ADMIN.name())
+                    .requestMatchers("/api/account", "/api/transactions").hasRole(UserType.ADMIN.name())
                     .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(session -> session
@@ -67,6 +66,5 @@ public class SecurityConfig extends VaadinWebSecurity {
                         HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .build();
     }
-
 
 }

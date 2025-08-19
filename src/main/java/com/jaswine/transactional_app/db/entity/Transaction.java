@@ -26,12 +26,12 @@ public class Transaction extends Auditable {
     @Column(name = "id")
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "account_id")
     private Account account;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "another_account_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "another_account_id", nullable = false)
     private Account anotherAccount;
 
     @Column(name = "amount")
@@ -50,7 +50,7 @@ public class Transaction extends Auditable {
     private String externalReference;
 
     @Column(name = "type", nullable = false)
-    private TransactionType transactionType;
+    private TransactionType type;
 
     @Column(name = "comment")
     private String comment;
