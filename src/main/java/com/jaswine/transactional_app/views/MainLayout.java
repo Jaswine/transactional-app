@@ -1,9 +1,9 @@
 package com.jaswine.transactional_app.views;
 
 import com.jaswine.transactional_app.services.VaadinSecurityService;
-import com.jaswine.transactional_app.views.components.account.AccountView;
-import com.jaswine.transactional_app.views.components.home.HomeView;
-import com.jaswine.transactional_app.views.components.transaction.TransactionView;
+import com.jaswine.transactional_app.views.pages.account.AccountView;
+import com.jaswine.transactional_app.views.pages.home.HomeView;
+import com.jaswine.transactional_app.views.pages.transaction.TransactionView;
 import com.jaswine.transactional_app.views.utils.ThemeModesUtils;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;

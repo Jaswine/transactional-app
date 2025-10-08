@@ -1,4 +1,4 @@
-package com.jaswine.transactional_app.views.components.login;
+package com.jaswine.transactional_app.views.pages.login;
 
 import com.jaswine.transactional_app.views.utils.ThemeModesUtils;
 import com.vaadin.flow.component.login.LoginForm;

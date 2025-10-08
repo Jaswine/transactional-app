@@ -1,4 +1,4 @@
-package com.jaswine.transactional_app.views.components.home;
+package com.jaswine.transactional_app.views.pages.home;
 
 import com.jaswine.transactional_app.views.MainLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;

@@ -25,6 +25,13 @@ public class TransactionController {
     private final TransactionService transactionService;
     private final AccountService accountService;
 
+    /**
+     * Отправка денег
+     *
+     * @param accountToEmail - аккаунт пользователя, кому кинуть деньги
+     * @param request - ДТО с суммой денег и комментарием
+     * @return Ответ с статусом транзакции, заголовком и описанием статуса
+     */
     @PostMapping("/transaction/{accountToEmail}")
     public ResponseEntity<TransactionLogResponseDto> sendTransaction(@PathVariable String accountToEmail,
                                            @RequestBody TransactionRequestDto request) {
@@ -39,6 +46,13 @@ public class TransactionController {
         ));
     }
 
+    /**
+     * Пополнение счета
+     *
+     * @param accountToEmail - аккаунт пользователя, кому кинуть деньги
+     * @param request - ДТО с суммой денег, названием источника(откуда деньги) и ссылкой на источник
+     * @return Ответ с статусом транзакции, заголовком и описанием статуса
+     */
     @PostMapping("/replenishment/{accountToEmail}")
     public ResponseEntity<TransactionLogResponseDto> sendReplenishment(@PathVariable String accountToEmail,
                                                                        @RequestBody ReplenishmentRequestDto request) {
@@ -51,6 +65,9 @@ public class TransactionController {
         ));
     }
 
+    /**
+     * Вывод всех транзакций
+     */
     @GetMapping("/")
     public ResponseEntity<TransactionResponseDto> getAllTransactions() {
         Optional<Account> currentAccount = accountService.findByUserEmail(

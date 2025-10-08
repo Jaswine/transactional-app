@@ -29,20 +29,17 @@ public class VaadinAuthProvider implements AuthenticationProvider {
         String email = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        System.out.println("Email: " + email);
-
+        // Берем пользователя и проверяем, что он имеет ADMIN статус
         Optional<User> user = userService.findByEmail(email);
         if (user.isEmpty() || user.get().getType() != UserType.ADMIN) {
             throw new BadCredentialsException("User not found: " + email);
         }
 
-        System.out.println("User: " + user.get().getEmail());
-
+        // Даем ему прав
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(user.get().getType().name()));
 
-        System.out.println("authorities: " + authorities.toString());
-
+        // Авторизуем пользователя
         if (authService.login(email, password).isEmpty()) {
             throw new BadCredentialsException("Password is incorrect: " + email);
         }

@@ -77,7 +77,7 @@ public class TransactionService {
                         transactionLog = transactionLogService.createTransactionLog(transaction,
                                 400, "User not found",
                                 "Transaction failed, user not found");
-                    } else if (accountFrom.get().getAmount() < amount) {
+                    }   else if (accountFrom.get().getAmount() < amount) {
                         transaction.setStatus(TransactionStatus.FAILED);
                         save(transaction);
                         transactionLog = transactionLogService.createTransactionLog(transaction,
