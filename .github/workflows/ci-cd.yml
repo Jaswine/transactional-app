@@ -36,10 +36,6 @@ jobs:
       - name: Code quality check
         run: mvn verify
 
-      - name: Build Docker image (если нужно)
-        run: | 
-          docker build -t my-java-app:latest .
-
 #  deploy:
 #    needs: build
 #    runs-on: ubuntu-latest
