@@ -5,6 +5,7 @@ import com.jaswine.transactional_app.services.AccountService;
 import com.jaswine.transactional_app.views.MainLayout;
 import com.jaswine.transactional_app.views.base.AbstractGridView;
 import com.vaadin.flow.component.checkbox.Checkbox;
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -68,6 +69,7 @@ public class AccountView extends AbstractGridView<Account> {
      */
     @Override
     protected void configureGrid() {
+        grid.setSelectionMode(Grid.SelectionMode.MULTI);
         grid.addColumn(createEmployeeRenderer()).setHeader("User")
                 .setAutoWidth(true).setFlexGrow(0)
                 .setComparator(account -> account.getUser().getUsername()).setResizable(true);
@@ -75,15 +77,29 @@ public class AccountView extends AbstractGridView<Account> {
         grid.addColumn(Account::getAmount).setHeader("Amount(€)").setResizable(true);
         grid.addColumn(new ComponentRenderer<>(account -> {
             Checkbox checkbox = new Checkbox(account.getIsActive());
-            checkbox.setEnabled(false);
+            checkbox.setEnabled(true);
             return checkbox;
         })).setHeader("Is Active").setResizable(true);
+        grid.addColumn(createEditButton()).setFrozenToEnd(true)
+                .setAutoWidth(true).setFlexGrow(0);
+        grid.addColumn(createDeleteButton()).setFrozenToEnd(true)
+                .setAutoWidth(true).setFlexGrow(0);
 
         grid.getDataProvider().refreshAll();
         grid.setDetailsVisibleOnClick(true);
 
         // Надпись если проектов нет
         grid.setEmptyStateComponent(notFoundHint());
+    }
+
+    private static Renderer<Account> createEditButton() {
+        return LitRenderer.<Account> of(
+                "<vaadin-button theme=\"tertiary\">Edit</vaadin-button>");
+    }
+
+    private static Renderer<Account> createDeleteButton() {
+        return LitRenderer.<Account> of(
+                "<vaadin-button theme=\"error\">Delete</vaadin-button>");
     }
 
     private static Renderer<Account> createEmployeeRenderer() {
